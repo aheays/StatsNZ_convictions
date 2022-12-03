@@ -1,0 +1,76 @@
+\documentclass[onecolumn]{mysimple}
+\title{Exploration of New Zealand and Auckland categorised crime statistics 1981–2014}
+\author{Alan Heays}
+\begin{document}
+\maketitle
+
+\section*{Main points}
+\begin{itemize}
+  \item Numerous statistically-significant trends and anomalies are present in the broadly categorised data.
+  \item \dots
+  \item ``Dig out Auckland Cluster''
+  \item ANZSOC subcategories
+  \item Other cities clusters
+\end{itemize}
+
+\section*{Introduction and data analysis}
+
+The purpose of this document is to identify hypotheses and insights by  the analysis of quantitative crime statistics spanning the years 1981 to 2014.
+
+The supplied annual conviction frequency is broken down according to the major offence categories of the ANZSOC standard. \footnote{\url{https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-offence-classification-anzsoc}}
+National frequencies (``Total Regions'') are given along with a subset attributed to an ``Auckland Cluster''.  
+I used the difference of these two to compute a third frequency, ``Total Regions Ex Auckland'', so a clearer binary comparison can be drawn from data distinguishing Auckland crime from everywhere else in the country.
+A visualisation of the conviction frequency for all offence categories and regions is given as an Appendix ref ???.
+
+Trends in the total crime frequency informs resourcing of the enforcement and court system, but can be usefully supplemented by a rate-per-population that levels out the effect of population growth.
+This permits the analysis of changes in the level of criminality.
+An annual estimate of New Zealand's population \footnote{Obtained from \url{https://figure.nz/chart/MFMkVhvbhuVFbiWr}. This data source references Stats NZ (\url{https://infoshare.stats.govt.nz/}) but the full time-period data set is not apparently currently available.}  is used to normalise the national crime rate.
+
+The population falling within the boundaries of the loosely defined ``Auckland Cluster'' does not appear to correspond to the Auckland Regional Council.
+Because, normalising ``Auckland Cluster'' conviction frequency by the regional population obtained form Stats NZ finds a implausibly lower crime rate per person with Auckland than elsewhere.
+The jurisdiction boundary of the ``Auckland Cluster'' should be clarified in further analysis of this data.
+In the meantime, the ratio of ``Total Regions'' and ``Auckland Cluster'' all-crime frequency is used as a proxy of their population, implying that 19\% of the national population is located in the cluster, and 81\% in ``Total Regions Ex Auckland''.
+Adopting these percentages for all years in the data set the population-normalised crime frequencies of all data was computed, and visualisations attached as an appendix ref???.
+
+\section*{Data source and analysis}
+
+ - description of data
+
+ 
+\section*{Trends in the data}
+
+\begin{figure}
+  \includegraphics{figures/total_offenses.pdf}
+\end{figure}
+
+ - overall crime down
+ 
+ - smooth curve if remove traffic
+ 
+ - some roughish categories going upwards, not as bad in Auckland. Other cities?
+
+ - ``Homicide And Related Offences'' and ``Dangerous Or Negligent Acts Endangering Persons'', connected to ``Traffic And Vehicle Regulatory Offences''?
+
+\section*{Anomalies in the data}
+
+\subsection*{Traffic And Vehicle Regulatory Offences}
+\subsection*{Acts Intended To Cause Injury}
+\subsection*{Others}
+
+\section*{Conclusion}
+
+\section*{Appendix}
+
+\begin{figure}
+  \centering
+  \caption{ddd}
+  \includegraphics{figures/all_offenses_0.pdf}
+\end{figure}
+
+\begin{figure}
+  \caption{ddd}
+  \centering
+  \includegraphics{figures/all_offenses_1.pdf}
+\end{figure}
+
+\end{document}

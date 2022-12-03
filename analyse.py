@@ -1,8 +1,10 @@
 from spectr.env import *
 
+## load crime data into a Dataset
 import xlrd
 book = xlrd.open_workbook('Interview Task 2022.xls')
 sheet = book.sheet_by_index(0)
+
 years = [int(t.value) for i,t in enumerate(sheet.row(3)) if i > 0]
 
 data = Dataset()
@@ -21,7 +23,7 @@ for irow in range(4,sheet.nrows-1):
             frequency=float(frequency.value),
             normalisation='none',)
 
-## add total offences neglecting traffic
+## compute total offences neglecting traffic regulations
 tdata0,tdata1 = dataset.get_common(
     data.matches(offence='Total Offences'),
     data.matches(offence='Traffic And Vehicle Regulatory Offences'),
@@ -31,7 +33,8 @@ tdata0['offence'] = 'Total Offences excluding Traffic and Vehicle'
 tdata0['frequency'] -= tdata1['frequency']
 data.concatenate(tdata0)
 
-## resort offences according to reducing frequency in Total Regions
+## order offences according to their reducing frequency in "Total
+## Regions"
 offences = data.unique('offence')
 frequency = []
 for offence in offences:
@@ -40,15 +43,14 @@ for offence in offences:
 i = np.argsort(frequency)
 offences = offences[i[::-1]]
 
-## estimate uncertainites as a Poisson process
+## estimate uncertainites as a Poisson process -- note factor as an
+## improved indicator of statistical fluctuations
 data['frequency','unc'] = 2*np.sqrt(data['frequency'])
-
-# data.describe()
 
 ## load population data
 data['population'] = np.nan
 
-# ## regional populations
+# ## national and regional populations from https://infoshare.stats.govt.nz
 # tdata = sheet_to_dict('DPE389701_20221203_021116_0_mod.csv',comment='#')
 # for region0,region1 in (
         # ("Auckland Region","Auckland Cluster"),
@@ -58,7 +60,7 @@ data['population'] = np.nan
         # i = data.match(year=year,region=region1)
         # data['population',i] = population
 
-# ## territorial authorities population
+# ## territorial authorities population from https://infoshare.stats.govt.nz
 # tdata = sheet_to_dict('DPE389801_20221203_024200_39_mod.csv',comment='#')
 # for region0,region1 in (
         # ("Auckland","Auckland Cluster"),
@@ -68,7 +70,9 @@ data['population'] = np.nan
         # i = data.match(year=year,region=region1)
         # data['population',i] = population
 
-## defacto national population https://figure.nz/chart/MFMkVhvbhuVFbiWr
+## defacto national population
+## https://figure.nz/chart/MFMkVhvbhuVFbiWr, apparently also from
+## https://infoshare.stats.govt.nz
 tdata = Dataset()
 tdata.load('./Population_Estimated_population_by_year_ended_June_19372022_mod.csv')
 tdata.limit_to_match({'Measure':'Estimated population','Unit':'Total',})
@@ -112,25 +116,8 @@ for match_keys,i in tdata.unique_dicts_match('region'):
 tdata['normalisation'] = 'population'
 data.concatenate(tdata)
 
-# ## normalise offense frequencies to national population, total offence
-# ## for Auckland
-# tdata = data.matches(normalisation='none').copy()
-# for region in tdata.unique('region'):
-#     for year in tdata.unique('year'):
-#         i = tdata.match(year=year,region=region)
-#         if region == "Total Regions":
-#             normalisation = tdata.unique_value('population',year=year,region="Total Regions",offence='Total Offences')
-#         else:
-#             normalisation = (tdata.unique_value('population',year=year,region="Total Regions",offence='Total Offences')
-#                              * tdata.unique_value('frequency',year=year,region=region,offence='Total Offences')
-#                              / tdata.unique_value('frequency',year=year,region="Total Regions",offence='Total Offences') )
-#         tdata['frequency',i] /= normalisation
-#         tdata['frequency','unc',i] /= normalisation
-# tdata['normalisation'] = 'population adjusted'
-# data.concatenate(tdata)
-
 ## normalise offense frequencies to national population, total offence
-## for Auckland
+## for Auckland, assuming constant Auckland fractional population
 tdata = data.matches(normalisation='none').copy()
 for region in tdata.unique('region'):
     for year in tdata.unique('year'):
@@ -148,6 +135,11 @@ for region in tdata.unique('region'):
         tdata['frequency','unc',i] /= normalisation
 tdata['normalisation'] = 'population adjusted'
 data.concatenate(tdata)
+
+## save processed data
+data.save('data.psv')
+
+## plot all data
 
 normalisation = (
     'none',
@@ -178,9 +170,7 @@ for ifig,normalisationi in enumerate(normalisation):
             ax=subplot(iax),
             xkeys='year',
             ykeys='frequency',
-            # title=title['offence'],
             zkeys=('region',),
-            # legend=False,
             legend=(iax==0),
             plot_ylabel=False,
             plot_xlabel=False,
@@ -198,20 +188,14 @@ for ifig,normalisationi in enumerate(normalisation):
         ## legend
         # plotting.suplegend(loc='below')
 
-        # ax.set_xlim(1997,2013)      #  DEBUG
-        # if iax>=2: break            #  DEBUG
-
-## plot population
-qfig(3)
-t0,t1 = dataset.get_common(
-    data.matches(region='Total Regions',normalisation='none',offence='Total Offences'),
-    data.matches(region="Auckland Cluster",normalisation='none',offence='Total Offences'),
-    keys='year')
-plot(t0['year'],t1['frequency']/t0['frequency'])
-print( np.mean(t1['frequency']/t0['frequency']))
-
-# ylim(ymin=0)
-
-    # "Total Regions",
-    # "Total Excluding Auckland Cluster",
-    # "Auckland Cluster",
+    
+        
+        
+# ## plot population
+# qfig(3)
+# t0,t1 = dataset.get_common(
+    # data.matches(region='Total Regions',normalisation='none',offence='Total Offences'),
+    # data.matches(region="Auckland Cluster",normalisation='none',offence='Total Offences'),
+    # keys='year')
+# plot(t0['year'],t1['frequency']/t0['frequency'])
+# print( np.mean(t1['frequency']/t0['frequency']))
