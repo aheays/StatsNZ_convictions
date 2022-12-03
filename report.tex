@@ -1,23 +1,23 @@
 \documentclass[onecolumn]{mysimple}
-\title{Exploration of New Zealand and Auckland categorised crime statistics 1981–2014}
+\title{Exploration of New Zealand and Auckland categorised criminal-conviction statistics between 1980–2014}
 \author{Alan Heays}
 \begin{document}
 \maketitle
 
 \section*{Main points}
 \begin{itemize}
-  \item Numerous statistically-significant trends and anomalies are present in the broadly categorised data.
-  \item \dots
-  \item ``Dig out Auckland Cluster''
-  \item ANZSOC subcategories
-  \item Other cities clusters
+  \item Numerous statistically-significant trends and anomalies are present in the categorised data.
+  \item Conviction rates and population criminality are decreasing.
+  \item Conviction rates within Auckland and elsewhere are similar for most statistics.
+  \item A hypothesis of increased traffic-offence enforcement correlated with subsequently reduced convictions in multiple categories.
+  \item A hypothesis of societal or enforcement policy change leading to spikes in convictions for threatening behaviour, particularly in Auckland
 \end{itemize}
 
 \section*{Introduction and data analysis}
 
-The purpose of this document is to identify hypotheses and insights by  the analysis of quantitative crime statistics spanning the years 1981 to 2014.
+The purpose of this document is to identify hypotheses and insights by  the analysis of quantitative crime statistics spanning the years 1980 to 2014.
 
-The supplied annual conviction frequency is broken down according to the major offence categories of the ANZSOC standard. \footnote{\url{https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-offence-classification-anzsoc}}
+The available data includes annual criminal conviction frequency, and is broken down according to the principal offence categories of the ANZSOC standard. \footnote{\url{https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-offence-classification-anzsoc}}
 National frequencies (``Total Regions'') are given along with a subset attributed to an ``Auckland Cluster''.  
 I used the difference of these two to compute a third frequency, ``Total Regions Ex Auckland'', so a clearer binary comparison can be drawn from data distinguishing Auckland crime from everywhere else in the country.
 A visualisation of the conviction frequency for all offence categories and regions is given as an Appendix ref ???.
@@ -32,30 +32,92 @@ The jurisdiction boundary of the ``Auckland Cluster'' should be clarified in fur
 In the meantime, the ratio of ``Total Regions'' and ``Auckland Cluster'' all-crime frequency is used as a proxy of their population, implying that 19\% of the national population is located in the cluster, and 81\% in ``Total Regions Ex Auckland''.
 Adopting these percentages for all years in the data set the population-normalised crime frequencies of all data was computed, and visualisations attached as an appendix ref???.
 
-\section*{Data source and analysis}
+The meaningfulness of some year-to-year variations in some crime categories is doubtful due to the rarity of some offences and statistical randomness.
+An approximate statistical uncertainty is computed to help gauge the significance time variations in the data set.\footnote{Assuming Poisson statistics controls the distribution of data the standard deviation convocation rate is computed according to its square-root.  
+Two-standard-deviation error bars are used in plots including the statistical uncertainty.}
 
- - description of data
-
- 
 \section*{Trends in the data}
 
+\subsection*{Convictions falling}
 \begin{figure}
+  \centering
   \includegraphics{figures/total_offenses.pdf}
+  \caption{Total criminal convictions.}
+  \label{fig:total crime}
 \end{figure}
 
- - overall crime down
- 
- - smooth curve if remove traffic
+The baseline number of annual convictions, plotted in Fig.~\ref{fig:total crime}, is decreasing consistently across the data time period, but with significant spikes.
+The annual national total has decreased ???\% comparing 1985 with 2014.
+The number of convictions per 100$\,$000 people (Fig.~\ref{fig:total crime}) has been falling even faster due to population growth, decreasing ???\% between these two years.
+The normalisation to population also demonstrates the similarity of total conviction rates in Auckland and elsewhere.
+
+\begin{figure}
+  \centering
+  \includegraphics{figures/total_offenses_except_traffic.pdf}
+  \caption{Total criminal convictions excluding ``Traffic and vehicle regulatory offences''.}
+  \label{fig:total crime}
+\end{figure}
+
+The anomalous conviction spikes centred on 1981 and 1989 are attributable to the most frequent conviction category of ``Traffic and vehicle regulatory offences''.
+This includes most vehicle, bicycle, and pedestrian offences but not those leading to injury or driving under the influence.
+Excluding this category from the total conviction frequency clarifies the steady decrease in the total frequency of the remaining data, including a more rapid improvement in the Auckland cluster than elsewhere. 
+
+\section*{Anomalies in the data}
+
+\subsection*{Reliability of early data}
+
+The reliability of 1980 and 1981 tallies in this data set should be investigated because of anomalously high rates in several categories: ``Traffic and vehicle regulatory offences'',Miscellaneous Offences''.
+These years precede the establishment of the ANZSOC standard in 1997, and the re-categorisation of this historical data may suffer from quality issues. 
+The three spurious categories also comprise a broad range of relatively minor offences that may baffle classification.
+
+\subsection*{Hypothesis: Convictions for traffic offences and road injuries}
+
+\begin{figure}
+  \centering
+  \includegraphics{figures/traffic_stuff.pdf}
+  \caption{}
+  \label{fig:traffic stuff}
+\end{figure}
+
+
+The frequency of convictions in the ``Traffic and vehicle regulatory offences'' category is steady in time and between regions, apart from the unusually high rates in 1981 and 1989. 
+The doubled rate of such convictions occurring in 1988 and 1989 relative to adjacent time periods correlates with the peak conviction rate in two other categories, ``Dangerous Or Negligent Acts Endangering Persons'' and ``Homicide And Related Offences'', followed by long-term decreasing rates.
+These are plotted in Fig.~\ref{fig:total crime}, where error bars based on the statistical uncertainty of rare ``Homicide And Related Offences'' offences indicates where small fluctuations be ignored.
+A constituent of the ``Dangerous Or Negligent Acts Endangering Persons'' conviction total is due to traffic-related injuries and driving under the influences, while ``Homicide And Related Offences'' includes traffic deaths.  
+
+I propose investigating whether a legislative or traffic-offence enforcement policy change initiated around 1988 is attributable a spike in regulatory offence convictions and reduction in the occurrence of dangerous or fatal traffic behaviour.
+This could be served by obtaining conviction data set broken down into ANZSOC subcategories separating traffic offences, and researching the occurrence of legislation or policy initiatives at that time. \footnote{A brief public search suggests that drunk driving and speed-camera enforcement campaigns occurred somewhat later.}
+
+
  
  - some roughish categories going upwards, not as bad in Auckland. Other cities?
 
  - ``Homicide And Related Offences'' and ``Dangerous Or Negligent Acts Endangering Persons'', connected to ``Traffic And Vehicle Regulatory Offences''?
 
-\section*{Anomalies in the data}
 
-\subsection*{Traffic And Vehicle Regulatory Offences}
 \subsection*{Acts Intended To Cause Injury}
-\subsection*{Others}
+
+\begin{figure}
+  \centering
+  \includegraphics{figures/injury_stuff.pdf}
+  \caption{}
+  \label{fig:injury stuff}
+\end{figure}
+
+Similarly anomalous conviction rates occur in both of the categories ``Acts Intended To Cause Injury'' and ``Abduction, Harassment And Other Offences Against The Person''.
+Both categories include offences involving threatening behaviour (distinguished by being face-to-face or remove) but are otherwise apparently distinct.
+The time series of these data are plotted in Fig.~\ref{fig:injury stuff} and feature a doubling of convictions in over the two years 1993 and 1994, and a large increase convictions in the Auckland cluster beginning around 2000.
+
+Several hypotheses seem plausible.  
+The step-change in frequency occurring in 1993/1994 may result in a crime-classification policy of this historical data that precedes the ANZSOC standard.
+Alternatively, a legislative or enforcement policy change the bringing of charges in these categories might be identifiable.
+A change in the true crime rate of this magnitude over such a short time span seems less likely.
+The Auckland-only conviction increase after 2000 is unlikely to be a classification anomaly in the collected data, and suggests either an enforcement or charge policy difference in the Auckland police and court system, or a genuinely more threatening Auckland culture.
+
+Additional data is needed to unpick the origins of these anomalies.
+An extended dataset included ANZSOC subcategories should be obtained, and regional data that isolates metropolitan regions aside from Auckland may provide further sociological indicators.
+
+
 
 \section*{Conclusion}
 
@@ -68,8 +130,8 @@ Adopting these percentages for all years in the data set the population-normalis
 \end{figure}
 
 \begin{figure}
-  \caption{ddd}
   \centering
+  \caption{ddd}
   \includegraphics{figures/all_offenses_1.pdf}
 \end{figure}
 

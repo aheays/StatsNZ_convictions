@@ -15,13 +15,14 @@ plotting.set_rcparam({
 regions = [
         'Auckland Cluster',
         'Total Excluding Auckland Cluster',
-        'Total Regions',
+        # 'Total Regions',
 ]
 
 fig = plt.figure()
+
 ax = subplot()
 for iregion,region in enumerate(regions):
-    tdata = data.matches(region=region, normalisation='none', offence='Total Offences',)
+    tdata = data.matches(region=region, normalisation='none', offence='Total Offences excluding Traffic and Vehicle',)
     ax.plot(
         tdata['year'],
         tdata['frequency']/1e3,
@@ -32,7 +33,7 @@ for iregion,region in enumerate(regions):
 
 ax = subplot()
 for iregion,region in enumerate(regions):
-    tdata = data.matches(region=region, normalisation='population adjusted', offence='Total Offences',)
+    tdata = data.matches(region=region, normalisation='population adjusted', offence='Total Offences excluding Traffic and Vehicle',)
     ax.plot(
         tdata['year'],
         tdata['frequency']*1e5,
@@ -40,6 +41,16 @@ for iregion,region in enumerate(regions):
         linestyle=newlinestyle(iregion),
     )
     ax.set_title('Convictions per 100$\,$000 population')
+
+    ## linear fit
+    # i = (tdata['year']>=1980)&(tdata['year']<=1995)
+    # p = np.polyfit(tdata['year'][i],tdata['frequency'][i]*1e5,1)
+    # ax.plot(
+        # tdata['year'],
+        # np.polyval(p,tdata['year'],)
+        # )
+
+
 
 for ax in fig.axes:
     ax.set_ylim(ymin=0)
@@ -52,7 +63,7 @@ for ax in fig.axes:
 
 ax = fig.axes[-1]
 plotting.suplegend(ax=ax,loc='top',frame_on=False)
-
-fig.savefig('total_offenses.pdf')
+    
+fig.savefig('total_offenses_except_traffic.pdf')
 fig.savefig('t.pdf')
     
