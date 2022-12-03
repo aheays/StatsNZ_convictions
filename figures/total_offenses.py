@@ -4,39 +4,42 @@ data = dataset.load('../data.psv')
 
 plotting.presetRcParams(
     'article_double_column',
-    top=0.85,
+    top=0.80,
+    left=0.08,
+    wspace=0.25,
 )
 plotting.set_rcparam({
     'lines.linewidth':2,
 })
 
-fig = plt.figure()
-ax = subplot()
-for iregion,region in enumerate([
-        # 'Total Regions',
+regions = [
+        'Total Regions',
         'Total Excluding Auckland Cluster',
         'Auckland Cluster',
-]):
+]
+
+fig = plt.figure()
+ax = subplot()
+for iregion,region in enumerate(regions):
     tdata = data.matches(region=region, normalisation='none', offence='Total Offences',)
     ax.plot(
         tdata['year'],
         tdata['frequency']/1e3,
         label=region,
+        linestyle=newlinestyle(iregion),
     )
-    ax.set_ylabel('Number of convictions (1000s)')
+    ax.set_title('Number of convictions (1000s)')
 
 ax = subplot()
-for region in [
-        # 'Total Regions',
-        'Total Excluding Auckland Cluster',
-        'Auckland Cluster',
-]:
+for iregion,region in enumerate(regions):
     tdata = data.matches(region=region, normalisation='population adjusted', offence='Total Offences',)
     ax.plot(
         tdata['year'],
         tdata['frequency']*1e5,
-        label=region,)
-    ax.set_ylabel('Convictions per 100$\,$000 population')
+        label=region,
+        linestyle=newlinestyle(iregion),
+    )
+    ax.set_title('Convictions per 100$\,$000 population')
 
 for ax in fig.axes:
     ax.set_ylim(ymin=0)
@@ -49,7 +52,7 @@ for ax in fig.axes:
 
 ax = fig.axes[-1]
 plotting.suplegend(ax=ax,loc='top',frame_on=False)
-    
+
 # fig.savefig('total_offenses.pdf')
 fig.savefig('t.pdf')
     
