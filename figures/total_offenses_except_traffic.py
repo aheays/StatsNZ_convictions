@@ -1,3 +1,7 @@
+## For efficiency in rapidly producing this report I have used a
+## custom python module "spectr" (https://github.com/aheays/spectr).
+## Ongoing collaborative professional work would be better done using
+## more standard modules.
 from spectr.env import *
 
 data = dataset.load('../data.psv')
@@ -58,7 +62,7 @@ for ax in fig.axes:
     ax.set_xticks(np.arange(data['year'].min(),data['year'].max()+0.5,5))
     ax.set_xticks(np.arange(data['year'].min(),data['year'].max()+0.5,1),minor=True)
     plotting.rotate_tick_labels(x_or_y='x',rotation=70,ax=ax,horizontalalignment='center')
-    ax.grid(True,which='major',axis='x',zorder=-5,color='gray')
+    ax.grid(True,which='major',axis='x',zorder=-5,color='gray',alpha=0.5)
 
 
 ax = fig.axes[-1]

@@ -1,3 +1,7 @@
+## For efficiency in rapidly producing this report I have used a
+## custom python module "spectr" (https://github.com/aheays/spectr).
+## Ongoing collaborative professional work would be better done using
+## more standard modules.
 from spectr.env import *
 
 data = dataset.load('../data.psv')

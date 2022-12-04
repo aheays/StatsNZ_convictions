@@ -1,12 +1,14 @@
+## For efficiency in rapidly producing this report I have used a
+## custom python module "spectr" (https://github.com/aheays/spectr).
+## Ongoing collaborative professional work would be better done using
+## more standard modules.
 from spectr.env import *
 
-## load crime data into a Dataset
+## load provided crime data into a Dataset
 import xlrd
 book = xlrd.open_workbook('Interview Task 2022.xls')
 sheet = book.sheet_by_index(0)
-
 years = [int(t.value) for i,t in enumerate(sheet.row(3)) if i > 0]
-
 data = Dataset()
 for irow in range(4,sheet.nrows-1):
     row = sheet.row(irow)
@@ -33,8 +35,7 @@ tdata0['offence'] = 'Total Offences excluding Traffic and Vehicle'
 tdata0['frequency'] -= tdata1['frequency']
 data.concatenate(tdata0)
 
-## order offences according to their reducing frequency in "Total
-## Regions"
+## order offences according to reducing "Total Regions" frequency
 offences = data.unique('offence')
 frequency = []
 for offence in offences:
@@ -43,32 +44,12 @@ for offence in offences:
 i = np.argsort(frequency)
 offences = offences[i[::-1]]
 
-## estimate uncertainites as a Poisson process -- note factor as an
+## estimate uncertainites as a Poisson process -- note factor 2 as an
 ## improved indicator of statistical fluctuations
 data['frequency','unc'] = 2*np.sqrt(data['frequency'])
 
 ## load population data
 data['population'] = np.nan
-
-# ## national and regional populations from https://infoshare.stats.govt.nz
-# tdata = sheet_to_dict('DPE389701_20221203_021116_0_mod.csv',comment='#')
-# for region0,region1 in (
-        # ("Auckland Region","Auckland Cluster"),
-        # ("New Zealand","Total Regions"),
-        # ):
-    # for year,population in zip(tdata['year'],tdata[region0]):
-        # i = data.match(year=year,region=region1)
-        # data['population',i] = population
-
-# ## territorial authorities population from https://infoshare.stats.govt.nz
-# tdata = sheet_to_dict('DPE389801_20221203_024200_39_mod.csv',comment='#')
-# for region0,region1 in (
-        # ("Auckland","Auckland Cluster"),
-        # ("New Zealand","Total Regions"),
-        # ):
-    # for year,population in zip(tdata['year'],tdata[region0]):
-        # i = data.match(year=year,region=region1)
-        # data['population',i] = population
 
 ## defacto national population
 ## https://figure.nz/chart/MFMkVhvbhuVFbiWr, apparently also from
@@ -80,7 +61,7 @@ for year,population in zip(tdata['Year ended June'],tdata['Value']):
     i = data.match(year=year,region="Total Regions")
     data['population',i] = population
 
-## get ex-Auckland region
+## get total excluding Auckland regional data
 t_total = data.matches(region="Total Regions")
 t_auckland = data.matches(region="Auckland Cluster")
 t_auckland,t_total = dataset.get_common(t_auckland,t_total,keys=('year','offence'))
@@ -157,7 +138,6 @@ region = (
 
 for ifig,normalisationi in enumerate(normalisation):
     fig = qfig(ifig)
-
     suptitle(f'Data normalisation: {normalisationi}')
     for iax,offence in enumerate(offences):
         tdata = data.matches(
@@ -178,24 +158,11 @@ for ifig,normalisationi in enumerate(normalisation):
         )
         ax = gca()
         ax.set_ylim(ymin=0)
-        ## title
         title = offence
         for i,c in enumerate(title):
             if i>30 and c==' ':
                 title = title[:i]+'\n'+title[i+1:]
                 break
         ax.set_title(title,fontsize=10)
-        ## legend
-        # plotting.suplegend(loc='below')
 
-    
-        
-        
-# ## plot population
-# qfig(3)
-# t0,t1 = dataset.get_common(
-    # data.matches(region='Total Regions',normalisation='none',offence='Total Offences'),
-    # data.matches(region="Auckland Cluster",normalisation='none',offence='Total Offences'),
-    # keys='year')
-# plot(t0['year'],t1['frequency']/t0['frequency'])
-# print( np.mean(t1['frequency']/t0['frequency']))
+show()

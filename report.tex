@@ -1,8 +1,17 @@
-% \documentclass[onecolumn]{mysimple}
 \documentclass[onecolumn]{myarticle}
 \title{Exploration of New Zealand and Auckland categorised criminal-conviction statistics between 1980–2014}
 \author{Alan Heays}
 \begin{document}
+
+
+\section*{Notes:}
+
+I have produced a written report targeted at policy researchers or similar people internal to ACC and are not analysts, but appreciative of the value of quantitative data.  
+
+The data analysis and plot generation are made with reproducible python scripts, and the report written in latex.  
+
+\newpage
+
 \maketitle
 
 \section*{Main points}
@@ -16,11 +25,11 @@
 
 \section*{Introduction and data analysis}
 
-The purpose of this document is to identify hypotheses and insights in the analysis of quantitative crime statistics spanning the years 1980 to 2014.
+The purpose of this document is to identify hypotheses and insights in the analysis of quantitative crime statistics from Stats NZ spanning the years 1980 to 2014.
 
 The available data includes annual criminal conviction frequency, and is broken down according to the principal offence categories of the ANZSOC standard.\footnote{\url{https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-offence-classification-anzsoc}}
 National frequencies (``Total Regions'') are given along with a subset attributed to an ``Auckland Cluster''.  
-I used the difference of these two to compute a third frequency, ``Total Regions Ex Auckland'', so a clearer binary comparison can be drawn from data distinguishing Auckland crime from everywhere else in the country.
+I used the difference of these two to compute a third frequency, ``Total Regions Excluding Auckland'', so a clearer binary comparison can be drawn from data distinguishing Auckland crime from everywhere else in the country.
 A visualisation of the conviction frequency for all offence categories and regions is provided in the appendix.
 
 Time trends in conviction frequency can inform resourcing of the enforcement and court system.
@@ -30,7 +39,7 @@ An annual estimate of New Zealand's population\footnote{Obtained from \url{https
 The population falling within the boundaries of the loosely defined ``Auckland Cluster'' does not appear to correspond to the Auckland Region.
 Because, normalising ``Auckland Cluster'' conviction frequency by the regional population obtained form Stats NZ finds an implausibly lower crime rate per person within Auckland than elsewhere.
 The jurisdiction boundary of the ``Auckland Cluster'' should be clarified in further analysis of this data.
-In the meantime, the ratio of ``Total Regions'' and ``Auckland Cluster'' all-crime frequency is used as a proxy of their relative populations, implying that 19\% of the national population is located in the cluster, and 81\% in ``Total Regions Ex Auckland''.
+In the meantime, the ratio of ``Total Regions'' and ``Auckland Cluster'' all-crime frequency is used as a proxy of their relative populations, implying that 19\% of the national population is located in the cluster, and 81\% in ``Total Regions Excluding Auckland''.
 Population-normalised crime frequencies are computed adopting this population break down for all years.
 A visualisation of the full normalised data set is provided in the appendix.
 
@@ -68,7 +77,7 @@ Excluding this category from the total conviction frequency finds a steady decre
 
 \subsection*{Reliability of early data}
 
-The reliability of 1980 and 1981 tallies in this data set should be investigated because of anomalously high rates in two categories: ``Traffic and vehicle regulatory offences'', ``Public Order Offences'', and ``Miscellaneous Offences''.
+The reliability of 1980 and 1981 tallies in this data set should be investigated because of anomalously high rates in three categories: ``Traffic and vehicle regulatory offences'', ``Public Order Offences'', and ``Miscellaneous Offences''.
 These years precede the establishment of the ANZSOC standard in 1997, and the re-categorisation of this historical data may suffer from quality issues. 
 The three spurious categories also comprise a broad range of relatively-minor offences that may baffle classification.
 
@@ -111,10 +120,6 @@ The Auckland-only conviction increase after 2000 is unlikely to be a classificat
 
 Additional data is needed to unpick the origins of these anomalies.
 An extended dataset included ANZSOC subcategories should be obtained, and regional data that isolates metropolitan regions aside from Auckland may provide further sociological indicators.
-
-\section*{Conclusion}
-
-
 
 \newpage
 \section*{Appendix}
