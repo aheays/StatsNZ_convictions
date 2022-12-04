@@ -55,7 +55,7 @@ data['population'] = np.nan
 ## https://figure.nz/chart/MFMkVhvbhuVFbiWr, apparently also from
 ## https://infoshare.stats.govt.nz
 tdata = Dataset()
-tdata.load('./Population_Estimated_population_by_year_ended_June_19372022_mod.csv')
+tdata.load('data/Population_Estimated_population_by_year_ended_June_19372022_mod.csv')
 tdata.limit_to_match({'Measure':'Estimated population','Unit':'Total',})
 for year,population in zip(tdata['Year ended June'],tdata['Value']):
     i = data.match(year=year,region="Total Regions")
