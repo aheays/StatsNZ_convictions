@@ -1,2 +1,2 @@
-# StatsNZ_convictions
+* StatsNZ_convictions
 Analysis of Stats NZ conviction data
