@@ -21,7 +21,7 @@ The purpose of this document is to identify hypotheses and insights in the analy
 The available data includes annual criminal conviction frequency, and is broken down according to the principal offence categories of the ANZSOC standard.\footnote{\url{https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-offence-classification-anzsoc}}
 National frequencies (``Total Regions'') are given along with a subset attributed to an ``Auckland Cluster''.  
 I used the difference of these two to compute a third frequency, ``Total Regions Ex Auckland'', so a clearer binary comparison can be drawn from data distinguishing Auckland crime from everywhere else in the country.
-A visualisation of the conviction frequency for all offence categories and regions is given as an Appendix ref ???.
+A visualisation of the conviction frequency for all offence categories and regions is provided in the appendix.
 
 Time trends in conviction frequency can inform resourcing of the enforcement and court system.
 This can be usefully supplemented by a rate-per-population that factors out the effect of population growth, and permitting an analysis of changes in the level of criminality.
@@ -32,7 +32,7 @@ Because, normalising ``Auckland Cluster'' conviction frequency by the regional p
 The jurisdiction boundary of the ``Auckland Cluster'' should be clarified in further analysis of this data.
 In the meantime, the ratio of ``Total Regions'' and ``Auckland Cluster'' all-crime frequency is used as a proxy of their relative populations, implying that 19\% of the national population is located in the cluster, and 81\% in ``Total Regions Ex Auckland''.
 Population-normalised crime frequencies are computed adopting this population break down for all years.
-The full normalised data set is visualised in appendix ref???.
+A visualisation of the full normalised data set is provided in the appendix.
 
 The meaningfulness of some year-to-year variations in some crime categories is doubtful due to the rarity of some offences and resulting statistical randomness.
 An approximate statistical uncertainty is computed to help gauge the significance time variations in the data set.\footnote{I make an assumption of Poisson statistics controlling the distribution of data, with a standard deviation conviction rate computed according from its square-root.  
@@ -114,18 +114,21 @@ An extended dataset included ANZSOC subcategories should be obtained, and region
 
 \section*{Conclusion}
 
+
+
+\newpage
 \section*{Appendix}
+\centering
+\subsection*{Conviction frequencies by offence category and region}
+\includegraphics{figures/all_offenses_normalisation_none_0.pdf}
+\newpage
+\includegraphics{figures/all_offenses_normalisation_none_1.pdf}
+\newpage
 
-\begin{figure}
-  \centering
-  \caption{ddd}
-  \includegraphics{figures/all_offenses_0.pdf}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \caption{ddd}
-  \includegraphics{figures/all_offenses_1.pdf}
-\end{figure}
+\subsection*{Conviction frequencies by offence category and region normalised by population}
+  \includegraphics{figures/all_offenses_normalisation_population adjusted_0.pdf}
+\newpage
+  \includegraphics{figures/all_offenses_normalisation_population adjusted_1.pdf}
+\newpage
 
 \end{document}
